@@ -55,14 +55,16 @@ rings = [Item(25,1,0),Item(50,2,0),Item(100,3,0),Item(20,0,1),Item(40,0,2),Item(
 item_sets = set()
 # construct item sets
 for weapon in weapons:
-  item_sets.add(frozenset([weapon]))
-  for armor in armors:
-    item_sets.add(frozenset([weapon, armor]))
+  #item_sets.add(frozenset([weapon]))
+  #for armor in armors:
+    #item_sets.add(frozenset([weapon, armor]))
     for ring_set in itertools.combinations(rings, 2):
-     for ring in ring_set:
-       item_sets.add(frozenset([weapon, armor, ring]))
+      ring_combo = set([weapon])
+      for ring in ring_set:
+        ring_combo.add(ring)
+      item_sets.add(frozenset(ring_combo))
     for ring in rings:
-      item_sets.add(frozenset([weapon, armor, ring]))
+      item_sets.add(frozenset([weapon, ring]))
 
 for items in item_sets:
   print items
@@ -84,22 +86,29 @@ for item_set in item_sets:
 
 
   while True:
-    boss_hp -= (player_damage - boss_armor)
+    if player_damage - boss_armor < 1:
+      boss_hp -= 1
+    else:
+      boss_hp -= (player_damage - boss_armor)
     if (boss_hp <= 0):
       break
-    player_hp -= (boss_damage - player_armor)
+    if boss_damage - player_armor < 1:
+      player_hp -= 1
+    else:
+      player_hp -= (boss_damage - player_armor)
     if (player_hp <= 0):
       break
 
 
-  if player_hp > 0:
+  if boss_hp > 0:
+    print "Player loses!"
+    if (cost > max_losing_cost):
+      print item_set
+      max_losing_cost = cost
+  else:
     print "Player wins!"
     if (cost < min_cost):
       min_cost = cost
-  else:
-    print "Player loses!"
-    if (cost > max_losing_cost):
-      max_losing_cost = cost
 
 print "Min winning cost: ", min_cost
 print "Max losing cost: ", max_losing_cost

@@ -36,7 +36,10 @@ for attempt in range(0,100):
       #print "Neighbors on for %s, %s: %s" % (x, y, count_on)
       if lights[x][y] == 1:
         if count_on != 2 and count_on != 3:
-          lights[x][y] = 0
+          if (x==0 and y==0) or (x==0 and y==99) or (x==99 and y==0) or (x==99 and y==99):
+            continue
+          else:
+            lights[x][y] = 0
       else:
         if count_on == 3:
           lights[x][y] = 1

@@ -1,7 +1,8 @@
 #!/usr/local/bin/python
 import re
 
-total = 0
+total_paper = 0
+total_ribbons = 0
 with open('2_input.txt', 'r') as f:
   for line in f:
     dims = line.split('x')
@@ -11,7 +12,10 @@ with open('2_input.txt', 'r') as f:
     w=dims[1]
     h=dims[2]
     sqft = 2*l*w + 2*w*h + 2*h*l + l*w
-    print sqft
-    total = total + sqft
+    sqft_ribbons = l*w*h
+    sqft_ribbons += 2*l + 2*w
+    total_paper += sqft
+    total_ribbons += sqft_ribbons
 
-print "Total: %s" % total
+print "total_paper: %s" % total_paper
+print "total_ribbons: %s" % total_ribbons

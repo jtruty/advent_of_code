@@ -1,7 +1,7 @@
 instrs = []
 with open("23_input.txt") as f:
   instrs = f.readlines()
-regs = {'a':0, 'b':0}
+regs = {'a':1, 'b':0}
 
 current_line = 0
 while current_line < len(instrs):

@@ -34,10 +34,11 @@ def hasPairs(pass_input):
 
 start = "hepxcrrq"
 
-while True:
+count=0
+while count < 2:
   next_pass = getNextPassword(start)
   #print "Next Password to test:", next_pass
   if hasStraightSequence(next_pass) and allValidChars(next_pass) and hasPairs(next_pass):
     print "Next Password:", next_pass
-    break
+    count += 1
   start = next_pass

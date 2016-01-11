@@ -1,21 +1,20 @@
 #!/usr/local/bin/python
 import re
 
-lights = [[False]*1000 for i in range(1000)]  #initialize to all 0s
+lights = [[0]*1000 for i in range(1000)]  #initialize to all 0s
 #print lights
 
 
 def change_coord(action, x, y):
   #print "Changing: %s, %s, %s" % (action, x, y)
   if "off" == action:
-    lights[x][y] = False
+    if lights[x][y] > 0:
+      lights[x][y] = lights[x][y]-1
   elif "on" == action:
-    lights[x][y] = True
+    lights[x][y] = lights[x][y]+1
   elif "toggle" == action:
-    if lights[x][y] == True:
-      lights[x][y] = False
-    else:
-      lights[x][y] = True
+    lights[x][y] = lights[x][y]+2
+
     #print lights[x][y]
 
 def parse_coords(line):
@@ -40,8 +39,7 @@ with open('6_input.txt', 'r') as f:
 count = 0
 for xel in lights:
   for yel in xel:
-    if yel == True:
-      count += 1
+    count += yel
 
 #print lights
 print count

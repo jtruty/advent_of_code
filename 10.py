@@ -1,7 +1,7 @@
 import re
 
 start = "3113322113"
-for i in range(40):
+for i in range(50):
   result = ""
   start_idx = 0
   while start_idx<len(start):

@@ -20,21 +20,40 @@ class Point:
         return "".join(["Point(", str(self.x), ",", str(self.y), ")"])
 
 houses = set()
-point = Point(0,0)
-houses.add(copy.copy(point))
+santa = Point(0,0)
+robo = Point(0,0)
+houses.add(copy.copy(santa))
 with open('3_input.txt', 'r') as f:
+  robo_move=False
   for line in f:
     for direction in line:
       if direction == '^':
-        point.shift(0,1)
+        if robo_move:
+          robo.shift(0,1)
+        else:
+          santa.shift(0,1)
       if direction == 'v':
-        point.shift(0,-1)
+        if robo_move:
+          robo.shift(0,-1)
+        else:
+          santa.shift(0,-1)
       if direction == '>':
-        point.shift(1,0)
+        if robo_move:
+          robo.shift(1,0)
+        else:
+          santa.shift(1,0)
       if direction == '<':
-        point.shift(-1,0)
-      p = copy.copy(point)
-      houses.add(p)
+        if robo_move:
+          robo.shift(-1,0)
+        else:
+          santa.shift(-1,0)
+      if robo_move:
+        p = copy.copy(robo)
+        houses.add(p)
+      else:
+        p = copy.copy(santa)
+        houses.add(p)
+      robo_move = not robo_move
       print "Adding %s" % p
 
 print "Houses: %s" % houses

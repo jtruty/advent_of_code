@@ -1,18 +1,14 @@
-import math
+import numpy as np
 
-def sum_presents(n):
-  sumf = 0
-  for i in range(1, int(math.sqrt(n))+1):
-    if n % i == 0:
-      sumf += i
-      sumf += n/i
-  print "sum:",sumf
-  return sumf*10
+BIG_NUM = 1000000  # try larger numbers until solution found
 
+goal = 34000000
+houses_a = np.zeros(BIG_NUM)
+houses_b = np.zeros(BIG_NUM)
 
-house=30000
-min_presents = 34000000
-while sum_presents(house) < min_presents:
-  house += 1
+for elf in range(1, BIG_NUM):
+    houses_a[elf::elf] += 10 * elf
+    houses_b[elf:(elf+1)*50:elf] += 11 * elf
 
-print "House:", house
+print(np.nonzero(houses_a >= goal)[0][0])
+print(np.nonzero(houses_b >= goal)[0][0])
